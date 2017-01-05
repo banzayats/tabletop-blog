@@ -1,0 +1,23 @@
+{% load home_tags wagtailcore_tags %}
+{% get_site_root as site_root %}
+
+<nav class="navbar navbar-dark bg-inverse">
+  <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+  <div class="collapse navbar-toggleable-md" id="navbarResponsive">
+    {# Link to home page #}
+    <a href="{% pageurl site_root %}" class="navbar-brand" title="{{ site_root.title }}">
+      <i class="fa fa-home fa-lg"></i> 
+    </a>
+    <ul class="nav navbar-nav">
+      {% for menuitem in menuitems %}
+      <li class="nav-item {% if menuitem.active %} active{% endif %}">
+        <a class="nav-link" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+      </li>       
+      {% endfor %}
+    </ul>
+    <form class="form-inline float-lg-right" action="{% url 'search' %}" method="get">
+      <input type="text" name="query" class="form-control" placeholder="Search" value="{{ search_query }}" />
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
